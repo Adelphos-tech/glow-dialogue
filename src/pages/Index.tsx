@@ -11,6 +11,7 @@ const Index = () => {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [loading, setLoading] = useState(false);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const endRef = useRef<HTMLDivElement | null>(null);
 
   // SEO basics
   useEffect(() => {
@@ -25,7 +26,11 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    listRef.current?.lastElementChild?.scrollIntoView({ behavior: "smooth" });
+    const smooth = { behavior: "smooth" as ScrollBehavior };
+    endRef.current?.scrollIntoView(smooth);
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+    });
   }, [messages, loading]);
 
   const handleSend = async (text: string) => {
@@ -70,7 +75,7 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col gap-6 px-4 pt-10">
+      <main className="mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col gap-6 px-4 pt-10 pb-40">
         {isEmpty ? (
           <section className="pt-10 text-center">
             <h1 className="text-3xl font-semibold tracking-tight">Ask anything</h1>
@@ -88,6 +93,7 @@ const Index = () => {
             )}
           </section>
         )}
+        <div ref={endRef} aria-hidden className="h-1" />
       </main>
 
       <nav className="fixed inset-x-0 bottom-0">
