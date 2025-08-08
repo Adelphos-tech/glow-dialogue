@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus, Mic, ArrowUp } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 
 type ChatInputProps = {
   onSend: (text: string) => void;
@@ -24,14 +24,6 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled }) => {
       aria-label="chat input"
     >
       <div className="flex items-center gap-3 rounded-full border border-border bg-accent/50 backdrop-blur px-4 py-3">
-        <button
-          type="button"
-          className="shrink-0 rounded-full p-2 text-muted-foreground hover:bg-secondary transition"
-          aria-label="new"
-          title="New"
-        >
-          <Plus className="h-5 w-5" />
-        </button>
         <input
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -39,14 +31,6 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled }) => {
           className="min-w-0 flex-1 bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none"
           aria-label="message"
         />
-        <button
-          type="button"
-          className="hidden sm:inline-flex shrink-0 rounded-full p-2 text-muted-foreground hover:bg-secondary transition"
-          aria-label="voice"
-          title="Voice"
-        >
-          <Mic className="h-5 w-5" />
-        </button>
         <button
           type="submit"
           disabled={disabled}

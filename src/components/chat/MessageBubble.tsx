@@ -9,6 +9,9 @@ export type MessageBubbleProps = {
 
 const MessageBubble: React.FC<MessageBubbleProps> = ({ role, content }) => {
   const isUser = role === "user";
+  const hasMultipleHeadings =
+    !isUser && (content.match(/(^|\n)#{1,6}\s/g) || []).length > 1;
+  const Container = (hasMultipleHeadings ? "section" : "div") as keyof JSX.IntrinsicElements;
   return (
     <article
       className={cn(
@@ -16,7 +19,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ role, content }) => {
         isUser ? "justify-end" : "justify-start"
       )}
     >
-      <div
+      <Container
         className={cn(
           "max-w-[72ch] rounded-2xl border px-4 py-3 text-sm leading-6 shadow-sm backdrop-blur",
           isUser
@@ -36,7 +39,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ role, content }) => {
               />
             ),
             strong: ({ node, ...props }) => (
-              <strong {...props} className="font-semibold" />
+              <strong {...props} className="font-bold" />
             ),
             ul: ({ node, ...props }) => (
               <ul {...props} className="list-disc pl-5 space-y-1" />
@@ -63,16 +66,16 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ role, content }) => {
               />
             ),
             h1: ({ node, ...props }) => (
-              <h3 {...props} className="text-base font-semibold" />
+              <h3 {...props} className="text-base font-bold" />
             ),
             h2: ({ node, ...props }) => (
-              <h4 {...props} className="text-sm font-semibold" />
+              <h4 {...props} className="text-sm font-bold" />
             ),
           }}
         >
           {content}
         </ReactMarkdown>
-      </div>
+      </Container>
     </article>
   );
 };
