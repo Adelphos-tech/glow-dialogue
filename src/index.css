@@ -53,6 +53,12 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Ambient glow tokens for premium dark gradient */
+    --glow-purple: 265 88% 60%;
+    --glow-orange: 20 95% 60%;
+    --glow-teal: 195 85% 50%;
+    --surface-glass: 0 0% 100%;
   }
 
   .dark {
